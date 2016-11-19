@@ -8,6 +8,9 @@
 
 import UIKit
 
+//Other resources of managing cache
+//http://sweettutos.com/2015/12/31/swift-how-to-asynchronously-download-and-cache-images-without-relying-on-third-party-libraries/
+
 let cacheImage = NSCache<NSString, UIImage>()
 extension UIImageView {
     func downloadImage(urlString: String) {
@@ -26,7 +29,7 @@ extension UIImageView {
             guard let data = imageData, let downloadedImage = UIImage(data: data) else { return }
             cacheImage.setObject(downloadedImage, forKey: urlString as NSString)
             DispatchQueue.main.async {
-                self.image = UIImage(data: data)
+                self.image = downloadedImage
             }
         }
     }
